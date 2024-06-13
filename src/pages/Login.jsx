@@ -1,13 +1,15 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 // const Button = styled(Link)``;
-const Main = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60vh;
 `;
-const Form = styled.form`
+const Form = styled.div`
   background-color: white;
   border-radius: 10px;
   width: 240px;
@@ -35,15 +37,32 @@ const ButtonBox = styled.div`
 
 function Login() {
   const navigate = useNavigate();
-
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLogin = () => {
+    console.log(id);
+    console.log(password);
+  };
   return (
-    <Main>
+    <Container>
       <Form>
         <div>로그인</div>
-        <Input placeholder="아이디"></Input>
-        <Input placeholder="비밀번호"></Input>
+        <Input
+          type="text"
+          onChange={(e) => {
+            setId(e.target.value);
+          }}
+          placeholder="아이디"
+        ></Input>
+        <Input
+          type="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          placeholder="비밀번호"
+        ></Input>
         <ButtonBox>
-          <Button>로그인</Button>
+          <Button onClick={handleLogin}>로그인</Button>
           <Button
             onClick={() => {
               navigate("/signup");
@@ -53,7 +72,7 @@ function Login() {
           </Button>
         </ButtonBox>
       </Form>
-    </Main>
+    </Container>
   );
 }
 
