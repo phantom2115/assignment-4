@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { signUp } from "../lib/api/auth";
+import { register } from "../lib/api/auth";
 
 const Container = styled.div`
   display: flex;
@@ -53,12 +53,15 @@ function SignUp() {
       alert("닉네임은 1~10 글자이어야 합니다. ");
       return;
     }
-    const respornse = await signUp({
+    const response = await register({
       id: id,
       password: password,
       nickname: nickname,
     });
-    console.log(respornse);
+    if (response) {
+      confirm("회원가입이 완료되었습니다!");
+      navigate("/login");
+    }
   };
   return (
     <Container>

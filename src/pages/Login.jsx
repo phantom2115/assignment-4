@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { login } from "../lib/api/auth";
 
 // const Button = styled(Link)``;
 const Container = styled.div`
@@ -35,13 +36,19 @@ const ButtonBox = styled.div`
   justify-content: center;
 `;
 
-function Login() {
+function Login({ setUser }) {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = () => {
-    console.log(id);
-    console.log(password);
+
+  const handleLogin = async () => {
+    const { userId, nickname, avartar } = await login({
+      id: id,
+      password: password,
+    });
+    alert("로그인이 완료되었습니다!");
+    setUser({ userId, nickname, avartar });
+    navigate("/");
   };
   return (
     <Container>
